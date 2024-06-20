@@ -11,7 +11,7 @@ import SwiftUI
 struct GoTrashApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MapView()
                 .preferredColorScheme(.light)
         }
     }

@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct CardView: View {
+struct CardView: View {    
+    // MARK: - Properties
+    
     let isSelected: Bool
     var trash: Trash
-    
     
     var body: some View {
         HStack {
@@ -22,14 +23,14 @@ struct CardView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("\(trash.id)")
                     .bold()
-                Text("290m away, near ulica Krasnoarmejska")
+                Text(trash.address ?? "Not found")
                     .font(.footnote)
             }
             Spacer()
             
             Circle()
                 .frame(width: 12, height: 12)
-                .foregroundColor(.green)
+                .foregroundColor(trash.full ? .red : .green)
         }
         .padding()
         .frame(maxWidth: .infinity)
@@ -37,6 +38,11 @@ struct CardView: View {
     }
 }
 
-//#Preview {
-//    CardView(isSelected: true, trash: Trash(id: 1234, name: "Manor"))
-//}
+#Preview {
+    CardView(isSelected: true, 
+             trash: Trash(id: 1234,
+                          name: "Manor",
+                          location: Location(latitude: 1.1234,
+                                             longitude: 4.23123),
+                          full: true))
+}

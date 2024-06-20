@@ -36,7 +36,8 @@ struct TrashView: View {
                             selectedId = trash.id
                         }
                     } label: {
-                        CardView(isSelected: viewModel.isSelected(trash: trash) || (selectedId == trash.id), trash: trash)
+                        CardView(isSelected: viewModel.isSelected(trash: trash) || (selectedId == trash.id),
+                                 trash: trash)
                             .foregroundStyle(.black)
                     }
                 }
@@ -64,44 +65,3 @@ struct TrashView: View {
 //#Preview {
 //    TrashView(selectedId: .constant(true))
 //}
-
-struct Trash: Identifiable {
-    let id: Int
-    let name: String
-    let location: LocationModel
-}
-
-struct LocationModel {
-    let latitude: Double
-    let longitude: Double
-}
-
-final class TrashViewModel: ObservableObject {
-    @Published private(set) var trashs: [Trash] = [
-        Trash(id: 1134, name: "Manor", location: LocationModel(latitude: 48.815410, longitude: 2.365179)),
-        Trash(id: 427412, name: "Park", location: LocationModel(latitude: 48.815510, longitude: 2.365279)),
-        Trash(id: 422, name: "Street", location: LocationModel(latitude: 48.815610, longitude: 2.365179))
-    ]
-    
-    @Published var selectedTrashIds: Set<Int> = []
-    
-    func toggleSelection(for trash: Trash) {
-        if selectedTrashIds.contains(trash.id) {
-            selectedTrashIds.remove(trash.id)
-        } else {
-            selectedTrashIds.insert(trash.id)
-        }
-    }
-    
-    func isSelected(trash: Trash) -> Bool {
-        selectedTrashIds.contains(trash.id)
-    }
-    
-    func filterTrashById(_ id: Int) -> Trash? {
-        trashs.first { $0.id == id }
-    }
-    
-    func removeItem(for trash: Trash) {
-        selectedTrashIds.remove(trash.id)
-    }
-}
