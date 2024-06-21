@@ -12,7 +12,6 @@ struct GoTrashApp: App {
     var body: some Scene {
         WindowGroup {
             MapView()
-                .preferredColorScheme(.light)
         }
     }
 }

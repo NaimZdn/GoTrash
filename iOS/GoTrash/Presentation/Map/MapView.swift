@@ -5,6 +5,8 @@
 //  Created by Zidouni Naïm on 16/06/2024.
 //
 
+import Core
+import DesignSystem
 import MapKit
 import SwiftUI
 import CoreLocation
@@ -22,11 +24,12 @@ struct MapView: View {
             Map(initialPosition: locationManager.startPosition, selection: $selectedItem) {
                 ForEach(viewModel.trashs) { trash in
                     Marker(trash.name, systemImage: "trash.fill", coordinate: CLLocationCoordinate2D(latitude: trash.location.latitude, longitude: trash.location.longitude))
-                        .tint(Color.gtPrimary)
+                        .tint(Color.gtYellow)
                         .tag(trash.id)
                 }
             }
-            .padding(.top, 32)
+            .tint(.gtPrimary)
+            .padding(.top, .xLarge)
             .mapControls({
                 MapUserLocationButton()
             })
@@ -35,7 +38,6 @@ struct MapView: View {
                 TrashView(selectedId: $selectedItem)
             }
         }
-        .tint(Color.gtPrimary)
     }
 }
 

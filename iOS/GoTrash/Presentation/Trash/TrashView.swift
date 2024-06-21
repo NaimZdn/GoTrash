@@ -5,22 +5,28 @@
 //  Created by Zidouni Naïm on 16/06/2024.
 //
 
+import DesignSystem
 import SwiftUI
 
 struct TrashView: View {
+    // MARK: - PRivate Properties
+    
     @StateObject private var viewModel = TrashViewModel()
     @State private var isSelected = false
+    
+    // MARK: - Properties
     
     @Binding var selectedId: Int?
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
+            VStack(spacing: .medium) {
                 TextField("Search trash", text: .constant(""))
-                    .padding(.vertical, 8)
+                    .padding(.vertical, .xSmall)
                     .padding(.horizontal)
                     .background {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        RoundedRectangle(cornerRadius: .xSmall, 
+                                         style: .continuous)
                             .fill(.gray.opacity(0.2))
                     }
                 
@@ -50,18 +56,19 @@ struct TrashView: View {
                         .bold()
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.gtPrimary, in: RoundedRectangle(cornerRadius: 8,
+                        .background(.gtYellow, in: RoundedRectangle(cornerRadius: .xSmall,
                                                                           style: .continuous))
                 }
             }
             .padding()
             .padding(.top)
-            
         }
         .background(Color.gtBackground)
     }
 }
 
-//#Preview {
-//    TrashView(selectedId: .constant(true))
-//}
+// MARK: - Preview TrashView
+
+#Preview {
+    TrashView(selectedId: .constant(123))
+}
