@@ -6,9 +6,12 @@
 //
 
 public enum Constant {
+    static let databaseChild = "trashcans"
+    
     // MARK: - Icon
     
     public enum Icon {
         public static let icTrash = "trash.fill"
+        public static let icGlass = "magnifyingglass"
     }
 }

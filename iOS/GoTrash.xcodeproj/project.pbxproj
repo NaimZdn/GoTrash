@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13A657B32C26F81100B79E0D /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 13A657B22C26F81100B79E0D /* Collections */; };
 		13E8C41E2C24E35700CA4E50 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 13E8C41D2C24E35700CA4E50 /* DesignSystem */; };
 		13E8C4212C24EC6A00CA4E50 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 13E8C4202C24EC6A00CA4E50 /* Core */; };
 		13F8B19A2C1EEAAD00B440F5 /* GoTrashApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F8B1992C1EEAAD00B440F5 /* GoTrashApp.swift */; };
@@ -65,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13A657B32C26F81100B79E0D /* Collections in Frameworks */,
 				13E8C4212C24EC6A00CA4E50 /* Core in Frameworks */,
 				13E8C41E2C24E35700CA4E50 /* DesignSystem in Frameworks */,
 			);
@@ -201,6 +203,7 @@
 			packageProductDependencies = (
 				13E8C41D2C24E35700CA4E50 /* DesignSystem */,
 				13E8C4202C24EC6A00CA4E50 /* Core */,
+				13A657B22C26F81100B79E0D /* Collections */,
 			);
 			productName = GoTrash;
 			productReference = 13F8B1962C1EEAAD00B440F5 /* GoTrash.app */;
@@ -275,6 +278,7 @@
 			);
 			mainGroup = 13F8B18D2C1EEAAD00B440F5;
 			packageReferences = (
+				13A657B12C26F81100B79E0D /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 13F8B1972C1EEAAD00B440F5 /* Products */;
 			projectDirPath = "";
@@ -659,7 +663,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		13A657B12C26F81100B79E0D /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections?tab=readme-ov-file";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		13A657B22C26F81100B79E0D /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 13A657B12C26F81100B79E0D /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
 		13E8C41D2C24E35700CA4E50 /* DesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignSystem;

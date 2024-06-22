@@ -9,6 +9,7 @@ import Core
 import Factory
 import Foundation
 import Combine
+import Collections
 
 final class TrashViewModel: ObservableObject {
     // MARK: - Proprerties
@@ -21,6 +22,7 @@ final class TrashViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     @Injected(\.observeTrashcansUseCase) private var observeTrashcansUseCase
     @Injected(\.reverseGeocodingUseCase) private var reverseGeocodingUseCase
+    @Injected(\.updateTrashCanIsOpenUseCase) private var updateTrashCanIsOpenUseCase
     
     // MARK: - Init
     
@@ -42,6 +44,10 @@ final class TrashViewModel: ObservableObject {
     
     func removeItem(for trash: Trash) {
         selectedTrashIds.remove(trash.id)
+    }
+    
+    func updateTrashcanIsOpen(trashId: Int, isOpen: Bool) {
+        updateTrashCanIsOpenUseCase.updateTrashcanIsOpen(trashId: trashId, isOpen: isOpen)
     }
 }
 

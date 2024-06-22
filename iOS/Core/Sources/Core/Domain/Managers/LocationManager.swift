@@ -8,7 +8,7 @@
 import CoreLocation
 import _MapKit_SwiftUI
 
-public final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+public final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     // MARK: - Properties
     
     public var startPosition: MapCameraPosition {

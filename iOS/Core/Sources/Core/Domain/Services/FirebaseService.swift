@@ -11,6 +11,7 @@ import Combine
 
 public protocol FirebaseServiceProtocol {
     func observeTrashCans() -> AnyPublisher<[Trash], Never>
+    func updateTrashcanIsOpen(trashId: Int, isOpen: Bool)
 }
 
 final class FirebaseService: FirebaseServiceProtocol {
@@ -27,7 +28,7 @@ final class FirebaseService: FirebaseServiceProtocol {
     }
     
     func observeTrashCans() -> AnyPublisher<[Trash], Never> {
-        databaseReference.child("trashcans").observe(.value) { parentSnapshot in
+        databaseReference.child(Constant.databaseChild).observe(.value) { parentSnapshot in
             guard let value = parentSnapshot.value as? [String: Any] else { return }
             
             do {
@@ -40,5 +41,16 @@ final class FirebaseService: FirebaseServiceProtocol {
             }
         }
         return self.observeTrashcansSubject.eraseToAnyPublisher()
+    }
+    
+    func updateTrashcanIsOpen(trashId: Int, isOpen: Bool) {
+        let updates: [String: Any] = ["isOpen": isOpen]
+        databaseReference.child("\(Constant.databaseChild)/\(trashId)").updateChildValues(updates) { error, _ in
+            if let error = error {
+                print("Failed to update trash can: \(error)")
+            } else {
+                print("Successfully updated trash can isOpen status")
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  CardView .swift
+//  TrashCardView .swift
 //  GoTrash
 //
 //  Created by Zidouni Naïm on 16/06/2024.
@@ -8,7 +8,7 @@
 import Core
 import SwiftUI
 
-public struct CardView: View {
+public struct GTTrashCard: View {
     // MARK: - Properties
     
     let isSelected: Bool
@@ -34,7 +34,7 @@ public struct CardView: View {
             
             Circle()
                 .frame(width: .small, height: .small)
-                .foregroundColor(trash.full ? .red : .green)
+                .foregroundColor(trash.isFull ? .red : .green)
         }
         .padding()
         .frame(maxWidth: .infinity)
@@ -49,11 +49,11 @@ public struct CardView: View {
     }
 }
 
-//#Preview {
-//    CardView(isSelected: true, 
-//             trash: Trash(id: 1234,
-//                          name: "Manor",
-//                          location: Location(latitude: 1.1234,
-//                                             longitude: 4.23123),
-//                          full: true))
-//}
+// MARK: - Preview CardView
+#Preview {
+    GTTrashCard(isSelected: true, trash: Trash(id: 123,
+                                          name: "Manor",
+                                          location: Location(latitude: 48.23129,
+                                                             longitude: 2.2434),
+                                          isFull: true))
+}
