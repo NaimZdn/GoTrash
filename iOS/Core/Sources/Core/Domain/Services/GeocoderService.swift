@@ -9,7 +9,7 @@ import CoreLocation
 import Combine
 
 public protocol GeocoderServiceProtocol {
-    func reverseGeocodeLocation(latitude: Double, longitude: Double) -> AnyPublisher<String, GeocoderError>
+    func reverseGeocodeLocation(_ location: CLLocation) -> AnyPublisher<String, GeocoderError>
 }
 
 final class GeocoderService: GeocoderServiceProtocol {
@@ -19,10 +19,8 @@ final class GeocoderService: GeocoderServiceProtocol {
     
     // MARK: - Methods
     
-    func reverseGeocodeLocation(latitude: Double, longitude: Double) -> AnyPublisher<String, GeocoderError> {
-        Future<String, GeocoderError> { promise in
-            let location = CLLocation(latitude: latitude, longitude: longitude)
-            
+    func reverseGeocodeLocation(_ location: CLLocation) -> AnyPublisher<String, GeocoderError> {
+        Future<String, GeocoderError> { promise in            
             self.geocoder.reverseGeocodeLocation(location) { placemarks, error in
                 if let error = error {
                     promise(.failure(.geocodingFailed(message: error.localizedDescription)))

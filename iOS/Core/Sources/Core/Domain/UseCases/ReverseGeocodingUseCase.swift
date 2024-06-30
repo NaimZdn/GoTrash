@@ -7,9 +7,10 @@
 
 import Factory
 import Combine
+import CoreLocation
 
 public protocol ReverseGeocodeLocationUseCaseProtocol {
-    func reverseGeocodeLocation(latitude: Double, longitude: Double) -> AnyPublisher<String, GeocoderError>
+    func reverseGeocodeLocation(_ location: CLLocation) -> AnyPublisher<String, GeocoderError>
 }
 
 final class ReverseGeocodeLocationUseCase: ReverseGeocodeLocationUseCaseProtocol {
@@ -19,7 +20,7 @@ final class ReverseGeocodeLocationUseCase: ReverseGeocodeLocationUseCaseProtocol
     
     // MARK: - Methods
     
-    func reverseGeocodeLocation(latitude: Double, longitude: Double) -> AnyPublisher<String, GeocoderError> {
-        geocoderService.reverseGeocodeLocation(latitude: latitude, longitude: longitude)
+    func reverseGeocodeLocation(_ location: CLLocation) -> AnyPublisher<String, GeocoderError> {
+        geocoderService.reverseGeocodeLocation(location)
     }
 }

@@ -1,6 +1,6 @@
 //
-//  TrashCardView .swift
-//  GoTrash
+//  GTTrashCard .swift
+//
 //
 //  Created by Zidouni Naïm on 16/06/2024.
 //
@@ -25,6 +25,15 @@ public struct GTTrashCard: View {
                 Text("\(trash.id)")
                     .bold()
                     .foregroundStyle(.gtText)
+                
+                Text(trash.isOpen ?? false ? "Forced open" : "Forced close")
+                    .font(.footnote)
+                    .foregroundStyle(.black)
+                    .padding(.horizontal, .xSmall)
+                    .padding(.vertical, .xxSmall)
+                    .background(Color.gtYellow, in: RoundedRectangle(cornerRadius: .xMedium,
+                                                                     style: .continuous))
+                
                 Text(trash.address ?? "Not found")
                     .font(.footnote)
                     .foregroundStyle(.gtText.opacity(0.7))
@@ -52,8 +61,8 @@ public struct GTTrashCard: View {
 // MARK: - Preview CardView
 #Preview {
     GTTrashCard(isSelected: true, trash: Trash(id: 123,
-                                          name: "Manor",
-                                          location: Location(latitude: 48.23129,
-                                                             longitude: 2.2434),
-                                          isFull: true))
+                                               name: "Manor",
+                                               location: Location(latitude: 48.23129,
+                                                                  longitude: 2.2434),
+                                               isFull: true))
 }

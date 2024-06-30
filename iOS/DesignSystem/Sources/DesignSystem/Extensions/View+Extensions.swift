@@ -8,6 +8,8 @@
 import SwiftUI
 
 public extension View {
+    // MARK: - Modifier
+    
     func bottomSheet<SheetContent: View>(
         initialHeight: CGFloat = .xxxLarge,
         sheetCornerRadius: CGFloat = .medium,
@@ -17,13 +19,16 @@ public extension View {
     }
 }
   
-
 fileprivate struct ButtonSheetModifier<SheetContent: View>: ViewModifier {
+    // MARK: - Properties
+    
     var initialHeight: CGFloat
     var sheetCornerRadius: CGFloat
     var sheetView: SheetContent
     
     @State private var isPresentedSheet: Bool = true
+    
+    // MARK: - Methods
     
     func body(content: Content) -> some View {
         content

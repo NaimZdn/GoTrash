@@ -6,8 +6,14 @@
 //
 
 public struct Location: Decodable {
+    // MARK: - Properties
+    
     public let latitude: Double
     public let longitude: Double
+    
+    // MARK: - Static Properties
+    
+    static let paris = Location(latitude: 48.8566, longitude: 2.3522)
     
     // MARK: - Init
     

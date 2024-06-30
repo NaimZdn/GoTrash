@@ -5,6 +5,7 @@
 //  Created by Zidouni Naïm on 18/06/2024.
 //
 
+import OSLog
 import Firebase
 import FirebaseDatabaseInternal
 import Combine
@@ -27,6 +28,8 @@ final class FirebaseService: FirebaseServiceProtocol {
         databaseReference = Database.database().reference()
     }
     
+    // MARK: - Methods
+    
     func observeTrashCans() -> AnyPublisher<[Trash], Never> {
         databaseReference.child(Constant.databaseChild).observe(.value) { parentSnapshot in
             guard let value = parentSnapshot.value as? [String: Any] else { return }
@@ -37,19 +40,19 @@ final class FirebaseService: FirebaseServiceProtocol {
                 let trashcans = Array(trashcansResponse.values)
                 self.observeTrashcansSubject.send(trashcans)
             } catch {
-                print("Failed to decode trashcans: \(error)")
+                Logger.core.fault("Failed to decode trashcans: \(error)")
             }
         }
         return self.observeTrashcansSubject.eraseToAnyPublisher()
     }
     
-    func updateTrashcanIsOpen(trashId: Int, isOpen: Bool) {
+    func updateTrashcanIsOpen(trashId: Int, isOpen: Bool) {        
         let updates: [String: Any] = ["isOpen": isOpen]
         databaseReference.child("\(Constant.databaseChild)/\(trashId)").updateChildValues(updates) { error, _ in
             if let error = error {
-                print("Failed to update trash can: \(error)")
+                Logger.core.fault("Failed to update trash can: \(error)")
             } else {
-                print("Successfully updated trash can isOpen status")
+                Logger.core.info("Successfully updated trash can isOpen status")
             }
         }
     }

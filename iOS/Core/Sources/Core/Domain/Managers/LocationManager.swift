@@ -16,14 +16,14 @@ public final class LocationManager: NSObject, CLLocationManagerDelegate, Observa
             return MapCameraPosition.region(
                 MKCoordinateRegion(
                     center: userLocation.coordinate,
-                    span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)
+                    span: Constant.Map.defaultSpan
                 )
             )
         } else {
             return MapCameraPosition.region(
                 MKCoordinateRegion(
-                    center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522),
-                    span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)
+                    center: CLLocationCoordinate2D(latitude: Location.paris.latitude, longitude: Location.paris.longitude),
+                    span: Constant.Map.defaultSpan
                 )
             )
         }

@@ -10,12 +10,11 @@ import DesignSystem
 import SwiftUI
 
 struct TrashView: View {
-    // MARK: - PRivate Properties
+    // MARK: - Private Properties
     
     @StateObject private var viewModel = TrashViewModel()
     @State private var searchTrashTextField = ""
     @State private var isSelected = false
-    @State private var lidState = false
     
     // MARK: - Properties
     
@@ -23,8 +22,7 @@ struct TrashView: View {
     
     var body: some View {
         VStack {
-            searchBar
-                .padding(.top)
+            searchBarView
             
             ScrollView {
                 VStack(spacing: .medium) {
@@ -35,18 +33,7 @@ struct TrashView: View {
                         emptyView
                     } else {
                         cardView
-                        
-                        Button {
-                            if let trashId = selectedId {
-                                viewModel.updateTrashcanIsOpen(trashId: trashId, isOpen: lidState)
-                                lidState.toggle()
-                            }
-                        } label: {
-                            Text("Open trash")
-                                .bold()
-                        }
-                        .buttonStyle(.gtDefault(selectedId == nil ? .gtYellow.opacity(0.4) : .gtYellow))
-                        .disabled(selectedId == nil)
+                        toggleLidButtonView
                     }
                 }
             }
@@ -60,7 +47,7 @@ struct TrashView: View {
 // MARK: - ViewBuilder
 
 private extension TrashView {
-    var searchBar: some View {
+    var searchBarView: some View {
         HStack(spacing: .small) {
             Image(systemName: Constant.Icon.icGlass)
                 .foregroundStyle(.placeholder)
@@ -74,11 +61,13 @@ private extension TrashView {
                              style: .continuous)
             .fill(.gray.opacity(0.2))
         }
+        .padding(.top)
     }
     
     var emptyView: some View {
         VStack(spacing: .medium) {
             Image(systemName: Constant.Icon.icTrash)
+                .foregroundStyle(.black)
                 .font(.system(size: .xxxLarge))
                 .padding()
                 .background(.gtYellow, in: Circle())
@@ -95,22 +84,39 @@ private extension TrashView {
             Text("Trashcans")
                 .font(.title2.bold())
             
-            ForEach(viewModel.trashs) { trash in
-                Button {
-                    if trash.id == selectedId {
-                        selectedId = nil
-                        viewModel.removeItem(for: trash)
-                    } else {
-                        viewModel.toggleSelection(for: trash)
-                        selectedId = trash.id
+            ForEach(viewModel.trashs.keys.sorted(), id: \.self) { key in
+                if let trash = viewModel.trashs[key] {
+                    Button {
+                        if trash.id == selectedId {
+                            selectedId = nil
+                            viewModel.removeItem(for: trash)
+                        } else {
+                            viewModel.toggleSelection(for: trash)
+                            selectedId = trash.id
+                        }
+                    } label: {
+                        GTTrashCard(isSelected: viewModel.isSelected(trash: trash) || (selectedId == trash.id),
+                                    trash: trash
+                        )
+                        .foregroundStyle(.black)
                     }
-                } label: {
-                    GTTrashCard(isSelected: viewModel.isSelected(trash: trash) || (selectedId == trash.id),
-                                trash: trash)
-                    .foregroundStyle(.black)
                 }
             }
         }
+    }
+    
+    var toggleLidButtonView: some View {
+        Button {
+            if let trashId = selectedId {
+                viewModel.updateTrashcanIsOpen(trashId: trashId)
+            }
+        } label: {
+            Text(viewModel.toggleButtonText)
+                .foregroundStyle(.black)
+                .bold()
+        }
+        .buttonStyle(.gtDefault(selectedId == nil ? .gtYellow.opacity(0.4) : .gtYellow))
+        .disabled(selectedId == nil)
     }
 }
 
